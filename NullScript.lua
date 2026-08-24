@@ -29,6 +29,7 @@ local UIGradient_8 = Instance.new("UIGradient")
 
 NullGUI.Name = "NullGUI"
 NullGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+NullGUI.ResetOnSpawn = false
 NullGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Dragger.Name = "Dragger"
