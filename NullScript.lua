@@ -1,3 +1,15 @@
+-- ==================================================== --
+--         ____                     _                   --
+--        / __ \                   | |                  --
+--       | |  | |_ __ __  _   _  __| | ___ _ __         --
+--       | |  | | '__|\ \/ / | | | | |/ _ \ '_ \        --
+--       | |__| | |    >  <  | |_| | |  __/ | | |       --
+--        \____/|_|   /_/\_\  \__, |_|\___|_| |_|       --
+--                             __/ |                    --
+--                            |___/                     --
+-- ==================================================== --
+
+
 local NullGUI = Instance.new("ScreenGui")
 local Dragger = Instance.new("Frame")
 local TransMainFrame = Instance.new("Frame")
@@ -29,8 +41,8 @@ local UIGradient_8 = Instance.new("UIGradient")
 
 NullGUI.Name = "NullGUI"
 NullGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-NullGUI.ResetOnSpawn = false
 NullGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+NullGUI.ResetOnSpawn = false
 
 Dragger.Name = "Dragger"
 Dragger.Parent = NullGUI
@@ -199,93 +211,186 @@ UIGradient_8.Rotation = -44
 UIGradient_8.Parent = NOCLIP
 
 
-local function MSSAV_fake_script()
+local function KZQW_fake_script()
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
+	local UIS = game:GetService("UserInputService")
+	local RS = game:GetService("RunService")
+	local CAS = game:GetService("ContextActionService")
+	
 	local gui = script.Parent
 	local scrollingFrame = gui:WaitForChild("Dragger"):WaitForChild("TransMainFrame"):WaitForChild("MainFrame"):WaitForChild("ScrollingFrame")
 	local ESP = scrollingFrame:WaitForChild("ESP")
+	local FLY = scrollingFrame:WaitForChild("FLY")
+	
+	local LocalPlayer = plyrs.LocalPlayer
+	local Camera = workspace.CurrentCamera
 	
 	local ESPtoggle = false
 	local playerAddedConnection
 	local characterConnections = {}
 	
+	local flyToggle = false
+	local bodyGyro, bodyVel
+	local movement = {forward = 0, backward = 0, right = 0, left = 0}
+	local updateConnection
+	
 	local function createESP(char, name)
 		if not char then return end
 		if char:FindFirstChild("Highlight") then return end
 	
-		local highlight = Instance.new("Highlight", char)
+		local highlight = Instance.new("Highlight")
 		highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 		highlight.FillColor = Color3.fromRGB(0, 187, 255)
+		highlight.Parent = char
 	
-		local targetPart = char:FindFirstChild("Head") or char:FindFirstChild("Torso") or char:FindFirstChild("UpperTorso")
-		if targetPart then
-			local billboardGUI = Instance.new("BillboardGui", targetPart)
+		local head = char:WaitForChild("Head", 5)
+		if head then
+			local billboardGUI = Instance.new("BillboardGui")
 			billboardGUI.Name = "ESP_Tag"
 			billboardGUI.Size = UDim2.new(0, 200, 0, 50)
 			billboardGUI.StudsOffset = Vector3.new(0, 2.5, 0)
 			billboardGUI.AlwaysOnTop = true
+			billboardGUI.Parent = head
 	
-			local textLabel = Instance.new("TextLabel", billboardGUI)
+			local textLabel = Instance.new("TextLabel")
 			textLabel.Size = UDim2.new(1, 0, 1, 0)
 			textLabel.BackgroundTransparency = 1
 			textLabel.Text = name
 			textLabel.TextColor3 = Color3.fromRGB(0, 187, 255)
 			textLabel.TextSize = 14
 			textLabel.Font = Enum.Font.SourceSansBold
+			textLabel.Parent = billboardGUI
 		end
 	end
 	
-	ESP.MouseButton1Click:Connect(function()
-		if ESPtoggle == false then
-			ESPtoggle = true
+	local function removeESP(char)
+		if not char then return end
 	
-			for _, plyr in plyrs:GetPlayers() do
+		local highlight = char:FindFirstChild("Highlight")
+		if highlight then highlight:Destroy() end
+	
+		local tag = char:FindFirstChild("ESP_Tag", true)
+		if tag then tag:Destroy() end
+	end
+	
+	ESP.MouseButton1Click:Connect(function()
+		ESPtoggle = not ESPtoggle
+	
+		if ESPtoggle then
+			local function listenToPlayer(plyr)
 				if plyr.Character then
 					createESP(plyr.Character, plyr.Name)
 				end
 	
-				local conn = plyr.CharacterAdded:Connect(function(char)
+				characterConnections[plyr] = plyr.CharacterAdded:Connect(function(char)
 					createESP(char, plyr.Name)
 				end)
-				table.insert(characterConnections, conn)
 			end
 	
-			playerAddedConnection = plyrs.PlayerAdded:Connect(function(newPlyr)
-				local conn = newPlyr.CharacterAdded:Connect(function(char)
-					if ESPtoggle == true then
-						createESP(char, newPlyr.Name)
-					end
-				end)
-				table.insert(characterConnections, conn)
-			end)
-		else
-			ESPtoggle = false
+			for _, plyr in plyrs:GetPlayers() do
+				listenToPlayer(plyr)
+			end
 	
+			playerAddedConnection = plyrs.PlayerAdded:Connect(listenToPlayer)
+	
+			table.insert(characterConnections, plyrs.PlayerRemoving:Connect(function(plyr)
+				if characterConnections[plyr] then
+					characterConnections[plyr]:Disconnect()
+					characterConnections[plyr] = nil
+				end
+			end))
+		else
 			if playerAddedConnection then
 				playerAddedConnection:Disconnect()
 				playerAddedConnection = nil
 			end
 	
-			for _, conn in characterConnections do
-				if conn then conn:Disconnect() end
+			for plyr, conn in pairs(characterConnections) do
+				if typeof(conn) == "RBXScriptConnection" then
+					conn:Disconnect()
+				end
 			end
 			characterConnections = {}
 	
 			for _, plyr in plyrs:GetPlayers() do
-				if plyr.Character then
-					local highlight = plyr.Character:FindFirstChild("Highlight")
-					if highlight then highlight:Destroy() end
-	
-					for _, part in plyr.Character:GetChildren() do
-						local tag = part:FindFirstChild("ESP_Tag")
-						if tag then tag:Destroy() end
-					end
-				end
+				removeESP(plyr.Character)
 			end
 		end
 	end)
 	
+	local function movementBind(actionName, inputState)
+		if inputState == Enum.UserInputState.Begin then
+			movement[actionName] = 1
+		elseif inputState == Enum.UserInputState.End then
+			movement[actionName] = 0
+		end
+		return Enum.ContextActionResult.Pass
+	end
+	
+	local function onFlyUpdate()
+		local char = LocalPlayer.Character
+		if not char then return end
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+	
+		if flyToggle and hrp and bodyGyro and bodyVel then
+			local cf = Camera.CFrame
+			local direction = cf.rightVector * (movement.right - movement.left) + cf.lookVector * (movement.forward - movement.backward)
+			if direction.Magnitude > 0 then
+				direction = direction.Unit
+			end
+			bodyGyro.CFrame = cf
+			bodyVel.Velocity = direction * 100
+		end
+	end
+	
+	FLY.MouseButton1Click:Connect(function()
+		flyToggle = not flyToggle
+	
+		local char = LocalPlayer.Character
+		if not char then return end
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+		local hum = char:FindFirstChild("Humanoid")
+		if not hrp or not hum then return end
+	
+		if flyToggle then
+			bodyGyro = Instance.new("BodyGyro", hrp)
+			bodyGyro.MaxTorque = Vector3.new(1, 1, 1) * 10^6
+			bodyGyro.P = 10^6
+			bodyGyro.CFrame = hrp.CFrame
+	
+			bodyVel = Instance.new("BodyVelocity", hrp)
+			bodyVel.MaxForce = Vector3.new(1, 1, 1) * 10^6
+			bodyVel.P = 10^4
+			bodyVel.Velocity = Vector3.new()
+	
+			hum.PlatformStand = true
+	
+			CAS:BindAction("forward", movementBind, false, Enum.PlayerActions.CharacterForward)
+			CAS:BindAction("backward", movementBind, false, Enum.PlayerActions.CharacterBackward)
+			CAS:BindAction("left", movementBind, false, Enum.PlayerActions.CharacterLeft)
+			CAS:BindAction("right", movementBind, false, Enum.PlayerActions.CharacterRight)
+	
+			updateConnection = RS.RenderStepped:Connect(onFlyUpdate)
+		else
+			if updateConnection then
+				updateConnection:Disconnect()
+				updateConnection = nil
+			end
+	
+			CAS:UnbindAction("forward")
+			CAS:UnbindAction("backward")
+			CAS:UnbindAction("left")
+			CAS:UnbindAction("right")
+	
+			movement = {forward = 0, backward = 0, right = 0, left = 0}
+	
+			if bodyGyro then bodyGyro:Destroy() bodyGyro = nil end
+			if bodyVel then bodyVel:Destroy() bodyVel = nil end
+			if hum then hum.PlatformStand = false end
+		end
+	end)
+	
 end
-coroutine.wrap(MSSAV_fake_script)()
+coroutine.wrap(KZQW_fake_script)()
