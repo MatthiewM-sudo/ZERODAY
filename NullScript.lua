@@ -213,7 +213,7 @@ UIGradient_8.Parent = NOCLIP
 
 -- Scripts:
 
-local function BUXDZ_fake_script() -- NullGUI.LocalScript 
+local function RFRC_fake_script() -- NullGUI.LocalScript 
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
@@ -227,6 +227,7 @@ local function BUXDZ_fake_script() -- NullGUI.LocalScript
 	local ESP = scrollingFrame:WaitForChild("ESP")
 	local FLY = scrollingFrame:WaitForChild("FLY")
 	local SERVER = scrollingFrame:WaitForChild("SERVER")
+	local NOCLIP = scrollingFrame:WaitForChild("NOCLIP")
 	
 	local LocalPlayer = plyrs.LocalPlayer
 	local Camera = workspace.CurrentCamera
@@ -239,6 +240,11 @@ local function BUXDZ_fake_script() -- NullGUI.LocalScript
 	local bodyGyro, bodyVel
 	local movement = {forward = 0, backward = 0, right = 0, left = 0}
 	local updateConnection
+	
+	local noclipToggle = false
+	local noclipGyro, noclipVel
+	local noclipUpdateConnection
+	local noclipCollisionConnection
 	
 	local function createESP(char, name)
 		if not char then return end
@@ -350,6 +356,7 @@ local function BUXDZ_fake_script() -- NullGUI.LocalScript
 	end
 	
 	FLY.MouseButton1Click:Connect(function()
+		if noclipToggle then return end
 		flyToggle = not flyToggle
 	
 		local char = LocalPlayer.Character
@@ -359,15 +366,17 @@ local function BUXDZ_fake_script() -- NullGUI.LocalScript
 		if not hrp or not hum then return end
 	
 		if flyToggle then
-			bodyGyro = Instance.new("BodyGyro", hrp)
+			bodyGyro = Instance.new("BodyGyro")
 			bodyGyro.maxTorque = Vector3.new(1, 1, 1) * 10^6
 			bodyGyro.P = 10^6
 			bodyGyro.CFrame = hrp.CFrame
+			bodyGyro.Parent = hrp
 	
-			bodyVel = Instance.new("BodyVelocity", hrp)
+			bodyVel = Instance.new("BodyVelocity")
 			bodyVel.maxForce = Vector3.new(1, 1, 1) * 10^6
 			bodyVel.P = 10^4
 			bodyVel.Velocity = Vector3.new()
+			bodyVel.Parent = hrp
 	
 			hum.PlatformStand = true
 	
@@ -402,5 +411,73 @@ local function BUXDZ_fake_script() -- NullGUI.LocalScript
 		end)
 	end)
 	
+	NOCLIP.MouseButton1Click:Connect(function()
+		if flyToggle then return end
+		noclipToggle = not noclipToggle
+	
+		local char = LocalPlayer.Character
+		if not char then return end
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+		local hum = char:FindFirstChild("Humanoid")
+		if not hrp or not hum then return end
+	
+		if noclipToggle then
+			noclipGyro = Instance.new("BodyGyro")
+			noclipGyro.maxTorque = Vector3.new(1, 1, 1) * 10^6
+			noclipGyro.P = 10^6
+			noclipGyro.CFrame = hrp.CFrame
+			noclipGyro.Parent = hrp
+	
+			noclipVel = Instance.new("BodyVelocity")
+			noclipVel.maxForce = Vector3.new(1, 1, 1) * 10^6
+			noclipVel.P = 10^4
+			noclipVel.Velocity = Vector3.new()
+			noclipVel.Parent = hrp
+	
+			hum.PlatformStand = true
+	
+			CAS:BindAction("forward", movementBind, false, Enum.PlayerActions.CharacterForward)
+			CAS:BindAction("backward", movementBind, false, Enum.PlayerActions.CharacterBackward)
+			CAS:BindAction("left", movementBind, false, Enum.PlayerActions.CharacterLeft)
+			CAS:BindAction("right", movementBind, false, Enum.PlayerActions.CharacterRight)
+	
+			noclipUpdateConnection = RS.RenderStepped:Connect(function()
+				if noclipToggle and hrp and noclipGyro and noclipVel then
+					local cf = Camera.CFrame
+					local direction = cf.rightVector * (movement.right - movement.left) + cf.lookVector * (movement.forward - movement.backward)
+					if direction.Magnitude > 0 then
+						direction = direction.Unit
+					end
+					noclipGyro.CFrame = cf
+					noclipVel.Velocity = direction * 100
+				end
+			end)
+	
+			noclipCollisionConnection = RS.Stepped:Connect(function()
+				if char then
+					for _, part in ipairs(char:GetDescendants()) do
+						if part:IsA("BasePart") then
+							part.CanCollide = false
+						end
+					end
+				end
+			end)
+		else
+			if noclipUpdateConnection then noclipUpdateConnection:Disconnect() noclipUpdateConnection = nil end
+			if noclipCollisionConnection then noclipCollisionConnection:Disconnect() noclipCollisionConnection = nil end
+	
+			CAS:UnbindAction("forward")
+			CAS:UnbindAction("backward")
+			CAS:UnbindAction("left")
+			CAS:UnbindAction("right")
+	
+			movement = {forward = 0, backward = 0, right = 0, left = 0}
+	
+			if noclipGyro then noclipGyro:Destroy() noclipGyro = nil end
+			if noclipVel then noclipVel:Destroy() noclipVel = nil end
+			if hum then hum.PlatformStand = false end
+		end
+	end)
+	
 end
-coroutine.wrap(BUXDZ_fake_script)()
+coroutine.wrap(RFRC_fake_script)()
