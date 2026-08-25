@@ -9,7 +9,6 @@
 --                            |___/                     --
 -- ==================================================== --
 
-
 local NullGUI = Instance.new("ScreenGui")
 local Dragger = Instance.new("Frame")
 local TransMainFrame = Instance.new("Frame")
@@ -38,6 +37,7 @@ local NOCLIP = Instance.new("TextButton")
 local UICorner_7 = Instance.new("UICorner")
 local UIGradient_8 = Instance.new("UIGradient")
 
+--Properties:
 
 NullGUI.Name = "NullGUI"
 NullGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -210,8 +210,9 @@ UIGradient_8.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fr
 UIGradient_8.Rotation = -44
 UIGradient_8.Parent = NOCLIP
 
+-- Scripts:
 
-local function KZQW_fake_script()
+local function NVNZ_fake_script() -- NullGUI.LocalScript 
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
@@ -393,4 +394,4 @@ local function KZQW_fake_script()
 	end)
 	
 end
-coroutine.wrap(KZQW_fake_script)()
+coroutine.wrap(NVNZ_fake_script)()
