@@ -1,3 +1,14 @@
+-- ==================================================== --
+--         ____                     _                   --
+--        / __ \                   | |                  --
+--       | |  | |_ __ __  _   _  __| | ___ _ __         --
+--       | |  | | '__|\ \/ / | | | | |/ _ \ '_ \        --
+--       | |__| | |    >  <  | |_| | |  __/ | | |       --
+--        \____/|_|   /_/\_\  \__, |_|\___|_| |_|       --
+--                             __/ |                    --
+--                            |___/                     --
+-- ==================================================== --
+
 local NullGUI = Instance.new("ScreenGui")
 local Dragger = Instance.new("Frame")
 local TransMainFrame = Instance.new("Frame")
@@ -15,7 +26,7 @@ local ScrollingFrame = Instance.new("ScrollingFrame")
 local ESP = Instance.new("TextButton")
 local UICorner_4 = Instance.new("UICorner")
 local UIGradient_5 = Instance.new("UIGradient")
-local UIListLayout = Instance.new("UIListLayout")
+local gui2lua2 = Instance.new("UIListLayout")
 local FLY = Instance.new("TextButton")
 local UICorner_5 = Instance.new("UICorner")
 local UIGradient_6 = Instance.new("UIGradient")
@@ -26,6 +37,7 @@ local NOCLIP = Instance.new("TextButton")
 local UICorner_7 = Instance.new("UICorner")
 local UIGradient_8 = Instance.new("UIGradient")
 
+--Properties:
 
 NullGUI.Name = "NullGUI"
 NullGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -136,10 +148,11 @@ UIGradient_5.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fr
 UIGradient_5.Rotation = -44
 UIGradient_5.Parent = ESP
 
-UIListLayout.Parent = ScrollingFrame
-UIListLayout.FillDirection = Enum.FillDirection.Horizontal
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 5)
+gui2lua2.Name = "gui2lua #2"
+gui2lua2.Parent = ScrollingFrame
+gui2lua2.FillDirection = Enum.FillDirection.Horizontal
+gui2lua2.SortOrder = Enum.SortOrder.LayoutOrder
+gui2lua2.Padding = UDim.new(0, 5)
 
 FLY.Name = "FLY"
 FLY.Parent = ScrollingFrame
@@ -198,8 +211,9 @@ UIGradient_8.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fr
 UIGradient_8.Rotation = -44
 UIGradient_8.Parent = NOCLIP
 
+-- Scripts:
 
-local function NVNZ_fake_script()
+local function EAEKZE_fake_script() -- NullGUI.LocalScript 
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
@@ -344,12 +358,12 @@ local function NVNZ_fake_script()
 	
 		if flyToggle then
 			bodyGyro = Instance.new("BodyGyro", hrp)
-			bodyGyro.MaxTorque = Vector3.new(1, 1, 1) * 10^6
+			bodyGyro.maxTorque = Vector3.new(1, 1, 1) * 10^6
 			bodyGyro.P = 10^6
 			bodyGyro.CFrame = hrp.CFrame
 	
 			bodyVel = Instance.new("BodyVelocity", hrp)
-			bodyVel.MaxForce = Vector3.new(1, 1, 1) * 10^6
+			bodyVel.maxForce = Vector3.new(1, 1, 1) * 10^6
 			bodyVel.P = 10^4
 			bodyVel.Velocity = Vector3.new()
 	
@@ -381,4 +395,4 @@ local function NVNZ_fake_script()
 	end)
 	
 end
-coroutine.wrap(NVNZ_fake_script)()
+coroutine.wrap(EAEKZE_fake_script)()
