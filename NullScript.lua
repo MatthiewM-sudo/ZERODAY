@@ -9,6 +9,8 @@
 --                            |___/                     --
 -- ==================================================== --
 
+-- Instances:
+
 local NullGUI = Instance.new("ScreenGui")
 local Dragger = Instance.new("Frame")
 local TransMainFrame = Instance.new("Frame")
@@ -213,7 +215,7 @@ UIGradient_8.Parent = NOCLIP
 
 -- Scripts:
 
-local function RFRC_fake_script() -- NullGUI.LocalScript 
+local function YUIEKNG_fake_script() -- NullGUI.LocalScript 
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
@@ -407,7 +409,11 @@ local function RFRC_fake_script() -- NullGUI.LocalScript
 	
 	SERVER.MouseButton1Click:Connect(function()
 		pcall(function()
-			TS:Teleport(game.PlaceId, plyrs.LocalPlayer)
+			local teleportOptions = Instance.new("TeleportOptions")
+			teleportOptions.ServerBindingMode = Enum.ServerBindingMode.Public
+			teleportOptions.ShouldReserveServer = false
+	
+			TS:TeleportAsync(game.PlaceId, {LocalPlayer}, teleportOptions)
 		end)
 	end)
 	
@@ -480,4 +486,4 @@ local function RFRC_fake_script() -- NullGUI.LocalScript
 	end)
 	
 end
-coroutine.wrap(RFRC_fake_script)()
+coroutine.wrap(YUIEKNG_fake_script)()
