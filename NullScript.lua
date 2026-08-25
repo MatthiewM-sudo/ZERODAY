@@ -213,18 +213,20 @@ UIGradient_8.Parent = NOCLIP
 
 -- Scripts:
 
-local function EAEKZE_fake_script() -- NullGUI.LocalScript 
+local function BUXDZ_fake_script() -- NullGUI.LocalScript 
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
 	local UIS = game:GetService("UserInputService")
 	local RS = game:GetService("RunService")
 	local CAS = game:GetService("ContextActionService")
+	local TS = game:GetService("TeleportService")
 	
 	local gui = script.Parent
 	local scrollingFrame = gui:WaitForChild("Dragger"):WaitForChild("TransMainFrame"):WaitForChild("MainFrame"):WaitForChild("ScrollingFrame")
 	local ESP = scrollingFrame:WaitForChild("ESP")
 	local FLY = scrollingFrame:WaitForChild("FLY")
+	local SERVER = scrollingFrame:WaitForChild("SERVER")
 	
 	local LocalPlayer = plyrs.LocalPlayer
 	local Camera = workspace.CurrentCamera
@@ -394,5 +396,11 @@ local function EAEKZE_fake_script() -- NullGUI.LocalScript
 		end
 	end)
 	
+	SERVER.MouseButton1Click:Connect(function()
+		pcall(function()
+			TS:Teleport(game.PlaceId, plyrs.LocalPlayer)
+		end)
+	end)
+	
 end
-coroutine.wrap(EAEKZE_fake_script)()
+coroutine.wrap(BUXDZ_fake_script)()
