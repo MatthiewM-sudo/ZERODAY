@@ -9,10 +9,9 @@
 --                           |___/                       --
 -- ===================================================== --
 
-
 -- Instances:
 
-local Walk_SpeedGUI = Instance.new("ScreenGui")
+local Jump_HeightGUI = Instance.new("ScreenGui")
 local Dragger = Instance.new("Frame")
 local TransMainFrame = Instance.new("Frame")
 local UIGradient = Instance.new("UIGradient")
@@ -28,7 +27,7 @@ local UIGradient_4 = Instance.new("UIGradient")
 local UICorner_4 = Instance.new("UICorner")
 local TextLabel = Instance.new("TextLabel")
 local UIGradient_5 = Instance.new("UIGradient")
-local Noclip_SpeedGUI = Instance.new("ScreenGui")
+local Fly_SpeedGUI = Instance.new("ScreenGui")
 local Dragger_2 = Instance.new("Frame")
 local TransMainFrame_2 = Instance.new("Frame")
 local UIGradient_6 = Instance.new("UIGradient")
@@ -77,7 +76,7 @@ local UIGradient_19 = Instance.new("UIGradient")
 local JUMPHEIGHT = Instance.new("TextButton")
 local UICorner_17 = Instance.new("UICorner")
 local UIGradient_20 = Instance.new("UIGradient")
-local Fly_SpeedGUI = Instance.new("ScreenGui")
+local Noclip_SpeedGUI = Instance.new("ScreenGui")
 local Dragger_4 = Instance.new("Frame")
 local TransMainFrame_4 = Instance.new("Frame")
 local UIGradient_21 = Instance.new("UIGradient")
@@ -93,7 +92,7 @@ local UIGradient_24 = Instance.new("UIGradient")
 local UICorner_21 = Instance.new("UICorner")
 local TextLabel_4 = Instance.new("TextLabel")
 local UIGradient_25 = Instance.new("UIGradient")
-local Jump_HeightGUI = Instance.new("ScreenGui")
+local Walk_SpeedGUI = Instance.new("ScreenGui")
 local Dragger_5 = Instance.new("Frame")
 local TransMainFrame_5 = Instance.new("Frame")
 local UIGradient_26 = Instance.new("UIGradient")
@@ -112,13 +111,13 @@ local UIGradient_30 = Instance.new("UIGradient")
 
 --Properties:
 
-Walk_SpeedGUI.Name = "Walk_SpeedGUI"
-Walk_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-Walk_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Walk_SpeedGUI.ResetOnSpawn = false
+Jump_HeightGUI.Name = "Jump_HeightGUI"
+Jump_HeightGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Jump_HeightGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Jump_HeightGUI.ResetOnSpawn = false
 
 Dragger.Name = "Dragger"
-Dragger.Parent = Walk_SpeedGUI
+Dragger.Parent = Jump_HeightGUI
 Dragger.Active = true
 Dragger.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Dragger.BackgroundTransparency = 1.000
@@ -169,7 +168,7 @@ TextBox.ClearTextOnFocus = false
 TextBox.Font = Enum.Font.Highway
 TextBox.PlaceholderColor3 = Color3.fromRGB(167, 182, 204)
 TextBox.PlaceholderText = "Type Speed..."
-TextBox.Text = "16"
+TextBox.Text = "7.2"
 TextBox.TextColor3 = Color3.fromRGB(138, 138, 138)
 TextBox.TextScaled = true
 TextBox.TextSize = 14.000
@@ -205,7 +204,7 @@ TextLabel.BorderSizePixel = 0
 TextLabel.Position = UDim2.new(0.0279824678, 0, -0.0712120757, 0)
 TextLabel.Size = UDim2.new(0, 143, 0, 34)
 TextLabel.Font = Enum.Font.Highway
-TextLabel.Text = "WalkSpeed"
+TextLabel.Text = "JumpHeight"
 TextLabel.TextColor3 = Color3.fromRGB(40, 43, 46)
 TextLabel.TextScaled = true
 TextLabel.TextSize = 14.000
@@ -216,13 +215,13 @@ UIGradient_5.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fr
 UIGradient_5.Rotation = -44
 UIGradient_5.Parent = TextLabel
 
-Noclip_SpeedGUI.Name = "Noclip_SpeedGUI"
-Noclip_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-Noclip_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Noclip_SpeedGUI.ResetOnSpawn = false
+Fly_SpeedGUI.Name = "Fly_SpeedGUI"
+Fly_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Fly_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Fly_SpeedGUI.ResetOnSpawn = false
 
 Dragger_2.Name = "Dragger"
-Dragger_2.Parent = Noclip_SpeedGUI
+Dragger_2.Parent = Fly_SpeedGUI
 Dragger_2.Active = true
 Dragger_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Dragger_2.BackgroundTransparency = 1.000
@@ -309,7 +308,7 @@ TextLabel_2.BorderSizePixel = 0
 TextLabel_2.Position = UDim2.new(0.0279824678, 0, -0.0712120757, 0)
 TextLabel_2.Size = UDim2.new(0, 143, 0, 34)
 TextLabel_2.Font = Enum.Font.Highway
-TextLabel_2.Text = "Noclip - Speed"
+TextLabel_2.Text = "Fly - Speed"
 TextLabel_2.TextColor3 = Color3.fromRGB(40, 43, 46)
 TextLabel_2.TextScaled = true
 TextLabel_2.TextSize = 14.000
@@ -529,13 +528,13 @@ UIGradient_20.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.f
 UIGradient_20.Rotation = -44
 UIGradient_20.Parent = JUMPHEIGHT
 
-Fly_SpeedGUI.Name = "Fly_SpeedGUI"
-Fly_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-Fly_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Fly_SpeedGUI.ResetOnSpawn = false
+Noclip_SpeedGUI.Name = "Noclip_SpeedGUI"
+Noclip_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Noclip_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Noclip_SpeedGUI.ResetOnSpawn = false
 
 Dragger_4.Name = "Dragger"
-Dragger_4.Parent = Fly_SpeedGUI
+Dragger_4.Parent = Noclip_SpeedGUI
 Dragger_4.Active = true
 Dragger_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Dragger_4.BackgroundTransparency = 1.000
@@ -622,7 +621,7 @@ TextLabel_4.BorderSizePixel = 0
 TextLabel_4.Position = UDim2.new(0.0279824678, 0, -0.0712120757, 0)
 TextLabel_4.Size = UDim2.new(0, 143, 0, 34)
 TextLabel_4.Font = Enum.Font.Highway
-TextLabel_4.Text = "Fly - Speed"
+TextLabel_4.Text = "Noclip - Speed"
 TextLabel_4.TextColor3 = Color3.fromRGB(40, 43, 46)
 TextLabel_4.TextScaled = true
 TextLabel_4.TextSize = 14.000
@@ -633,13 +632,13 @@ UIGradient_25.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.f
 UIGradient_25.Rotation = -44
 UIGradient_25.Parent = TextLabel_4
 
-Jump_HeightGUI.Name = "Jump_HeightGUI"
-Jump_HeightGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-Jump_HeightGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Jump_HeightGUI.ResetOnSpawn = false
+Walk_SpeedGUI.Name = "Walk_SpeedGUI"
+Walk_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Walk_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Walk_SpeedGUI.ResetOnSpawn = false
 
 Dragger_5.Name = "Dragger"
-Dragger_5.Parent = Jump_HeightGUI
+Dragger_5.Parent = Walk_SpeedGUI
 Dragger_5.Active = true
 Dragger_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Dragger_5.BackgroundTransparency = 1.000
@@ -690,7 +689,7 @@ TextBox_4.ClearTextOnFocus = false
 TextBox_4.Font = Enum.Font.Highway
 TextBox_4.PlaceholderColor3 = Color3.fromRGB(167, 182, 204)
 TextBox_4.PlaceholderText = "Type Speed..."
-TextBox_4.Text = "7.2"
+TextBox_4.Text = "16"
 TextBox_4.TextColor3 = Color3.fromRGB(138, 138, 138)
 TextBox_4.TextScaled = true
 TextBox_4.TextSize = 14.000
@@ -726,7 +725,7 @@ TextLabel_5.BorderSizePixel = 0
 TextLabel_5.Position = UDim2.new(0.0279824678, 0, -0.0712120757, 0)
 TextLabel_5.Size = UDim2.new(0, 143, 0, 34)
 TextLabel_5.Font = Enum.Font.Highway
-TextLabel_5.Text = "JumpHeight"
+TextLabel_5.Text = "WalkSpeed"
 TextLabel_5.TextColor3 = Color3.fromRGB(40, 43, 46)
 TextLabel_5.TextScaled = true
 TextLabel_5.TextSize = 14.000
@@ -739,7 +738,7 @@ UIGradient_30.Parent = TextLabel_5
 
 -- Scripts:
 
-local function KYKAWXG_fake_script() -- NullGUI.LocalScript 
+local function CMSC_fake_script() -- NullGUI.LocalScript 
 	local script = Instance.new('LocalScript', NullGUI)
 
 	local plyrs = game:GetService("Players")
@@ -1060,4 +1059,4 @@ local function KYKAWXG_fake_script() -- NullGUI.LocalScript
 	end)
 	
 end
-coroutine.wrap(KYKAWXG_fake_script)()
+coroutine.wrap(CMSC_fake_script)()
