@@ -339,6 +339,7 @@ Converted["_Dragger1"].Size = UDim2.new(0.323998362, 0, 0.0558748394, 0)
 Converted["_Dragger1"].Visible = false
 Converted["_Dragger1"].Name = "Dragger"
 Converted["_Dragger1"].Parent = Converted["_Fly_SpeedGUI"]
+Converted["_Dragger1"].Draggable = true
 
 Converted["_TransMainFrame1"].BackgroundColor3 = Color3.fromRGB(50.00000461935997, 50.00000461935997, 50.00000461935997)
 Converted["_TransMainFrame1"].BackgroundTransparency = 0.30000001192092896
@@ -490,6 +491,7 @@ Converted["_Dragger2"].Position = UDim2.new(0.218483731, 0, 0.217652783, 0)
 Converted["_Dragger2"].Size = UDim2.new(0.507972181, 0, 0.100574709, 0)
 Converted["_Dragger2"].Name = "Dragger"
 Converted["_Dragger2"].Parent = Converted["_NullGUI"]
+Converted["_Dragger2"].Draggable = true
 
 Converted["_TransMainFrame2"].BackgroundColor3 = Color3.fromRGB(50.00000461935997, 50.00000461935997, 50.00000461935997)
 Converted["_TransMainFrame2"].BackgroundTransparency = 0.30000001192092896
@@ -803,6 +805,7 @@ Converted["_Dragger3"].Size = UDim2.new(0.323998362, 0, 0.0558748394, 0)
 Converted["_Dragger3"].Visible = false
 Converted["_Dragger3"].Name = "Dragger"
 Converted["_Dragger3"].Parent = Converted["_Noclip_SpeedGUI"]
+Converted["_Dragger3"].Draggable = true
 
 Converted["_TransMainFrame3"].BackgroundColor3 = Color3.fromRGB(50.00000461935997, 50.00000461935997, 50.00000461935997)
 Converted["_TransMainFrame3"].BackgroundTransparency = 0.30000001192092896
@@ -955,6 +958,7 @@ Converted["_Dragger4"].Size = UDim2.new(0.323998362, 0, 0.0558748394, 0)
 Converted["_Dragger4"].Visible = false
 Converted["_Dragger4"].Name = "Dragger"
 Converted["_Dragger4"].Parent = Converted["_Walk_SpeedGUI"]
+Converted["_Dragger4"].Draggable = true
 
 Converted["_TransMainFrame4"].BackgroundColor3 = Color3.fromRGB(50.00000461935997, 50.00000461935997, 50.00000461935997)
 Converted["_TransMainFrame4"].BackgroundTransparency = 0.30000001192092896
