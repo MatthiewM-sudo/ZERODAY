@@ -76,6 +76,7 @@ local UIGradient_18 = Instance.new("UIGradient")
 Fly_SpeedGUI.Name = "Fly_SpeedGUI"
 Fly_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 Fly_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Fly_SpeedGUI.ResetOnSpawn = false
 
 Dragger.Name = "Dragger"
 Dragger.Parent = Fly_SpeedGUI
@@ -350,6 +351,7 @@ UIGradient_13.Parent = NOCLIP
 Noclip_SpeedGUI.Name = "Noclip_SpeedGUI"
 Noclip_SpeedGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 Noclip_SpeedGUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Noclip_SpeedGUI.ResetOnSpawn = false
 
 Dragger_3.Name = "Dragger"
 Dragger_3.Parent = Noclip_SpeedGUI
